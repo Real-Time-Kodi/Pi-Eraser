@@ -3,15 +3,18 @@ devname=$(basename $1)
 
 echo "NUKING $1" >> /var/log/PiBAN.log
 #TURN ON LED
-gpio -g mode 17 out
-gpio -g write 17 1
+#gpio -g mode 17 out
+#gpio -g write 17 1
+
+# Check for badblocks
+badblocks -ws -o /var/log/badblocks.log "$1"
 
 # This next line handles securely erasing the disk.
 # Pick one. Or none if you don't need secure erase.
 # 1 Pass. (Fastest)
-shred -v --iterations=1 "$1"
+#shred -v --iterations=1 "$1"
 # This will run a DOD Short erase(3 passes)(Slow)
-#nwipe --autonuke --nogui --nowait "$1"
+nwipe --autonuke --nogui --nowait "$1"
 # DOD 5220.22-M (7 Passes)(Just use a hammer instead)
 #nwipe --autonuke --nogui --nowait --method=dod "$1"
 
@@ -69,7 +72,7 @@ rmdir $mntpath
 sync #SYNC because I don't trust the kernel to do it for me.
 
 #TURN OFF LED
-gpio -g write 17 0
+#gpio -g write 17 0
 
 echo "Drive Completed $1" >> /var/log/PiBAN.log
 
