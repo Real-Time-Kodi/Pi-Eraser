@@ -1,1 +1,1 @@
-KERNEL=="sd[a-z]", SUBSYSTEM=="block", ACTION=="add", RUN+="/usr/local/bin/usbmount.sh $name"
+KERNEL=="sd[a-z]", SUBSYSTEM=="block", ACTION=="add", RUN+="/usr/local/bin/usbmount.sh %N"
