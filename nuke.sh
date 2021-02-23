@@ -17,9 +17,8 @@ export -f log #Make logging function available
 
 log "NUKING $1"
 
-#TURN ON LED
-gpio -g mode 17 out
-gpio -g write 17 1
+#TURN LED to blink
+echo heartbeat > /sys/class/leds/led1/trigger
 
 if (( $ENABLE_ATA_SECURE_ERASE ))
 then
@@ -124,7 +123,7 @@ fi
 
 
 sync #SYNC because I don't trust the kernel to do it for me.
-#TURN OFF LED
-gpio -g write 17 0
+#TURN LED to normal
+echo input > /sys/class/leds/led1/trigger
 
 log "Drive Completed $1"
