@@ -41,7 +41,7 @@ then
 	then
 		log "DRY RUN, NO ERASE HAPPENING."
 	else
-		$ERASE_COMMAND
+		nice $ERASE_COMMAND
 	fi
 fi
 if [ $res -eq 2 ]
